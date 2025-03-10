@@ -2,16 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <Version>2025.3.10.1</Version>
-    <AssemblyVersion>2025.3.10.1</AssemblyVersion>
-    <FileVersion>2025.3.10.1</FileVersion>
+    <Version>2025.3.10.2</Version>
+    <AssemblyVersion>2025.3.10.2</AssemblyVersion>
+    <FileVersion>2025.3.10.2</FileVersion>
 
     <PackageId>ExtensionsDprCrud</PackageId>
     <!-- Match the file name exactly as it will appear in the package -->
     <PackageIcon>Dapper.png</PackageIcon>
     
     <Authors>Daniel Pollack</Authors>
-    <Description>A short description of your package</Description>
+    <Description>Dapper CRUD Extensions</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <RepositoryUrl>https://github.com/DotNetDeveloperDan/Dapper-Extensions</RepositoryUrl>
