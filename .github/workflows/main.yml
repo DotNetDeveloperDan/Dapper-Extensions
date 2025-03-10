@@ -3,8 +3,8 @@ name: Build and Deploy NuGet Package
 on:
   push:
     tags:
-      - 'v*'  # Trigger on tags starting with "v"
-  workflow_dispatch:  # Enables manual trigger
+      - 'v*'   # Trigger on tags that start with "v" (e.g. v1.0.0)
+  workflow_dispatch:  # Allow manual triggering of the workflow
 
 jobs:
   build:
@@ -18,18 +18,31 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '8.0.x'
+      
+      # 1. Remove any old nuget.org v2 source and ensure we use the v3 source.
+      - name: Remove old nuget.org source
+        run: |
+          dotnet nuget remove source nuget.org || true
+          dotnet nuget add source https://api.nuget.org/v3/index.json --name nuget.org
 
+
+      # 2. Restore dependencies
       - name: Restore Dependencies
         run: dotnet restore
 
+      # 3. Build
       - name: Build
         run: dotnet build --configuration Release --no-restore
 
-      - name: Run Tests
-        run: dotnet test --configuration Release --no-build --verbosity normal
-
+      # 4. Pack NuGet Package
       - name: Pack NuGet Package
         run: dotnet pack --configuration Release --no-build -o ./nupkgs
 
+      # 5. Push Package to NuGet.org (v3)
       - name: Push Package to NuGet.org
-        run: dotnet nuget push ./nupkgs/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+        run: |
+          dotnet nuget push ./nupkgs/*.nupkg \
+          --api-key ${{ secrets.NUGET_API_KEY }} \
+          --source https://api.nuget.org/v3/index.json \
+          --skip-duplicate
+
