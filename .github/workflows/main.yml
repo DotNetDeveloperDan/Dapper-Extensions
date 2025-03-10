@@ -3,7 +3,8 @@ name: Build and Deploy NuGet Package
 on:
   push:
     tags:
-      - 'v*'  # Triggers the workflow for tags that start with 'v'
+      - 'v*'  # Trigger on tags starting with "v"
+  workflow_dispatch:  # Enables manual trigger
 
 jobs:
   build:
@@ -16,7 +17,7 @@ jobs:
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '8.0.x'
+          dotnet-version: '7.0.x'
 
       - name: Restore Dependencies
         run: dotnet restore
