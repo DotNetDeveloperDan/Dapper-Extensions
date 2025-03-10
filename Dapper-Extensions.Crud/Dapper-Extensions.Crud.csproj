@@ -5,6 +5,12 @@
     <Version>2025.3.10.1</Version>
     <AssemblyVersion>2025.3.10.1</AssemblyVersion>
     <FileVersion>2025.3.10.1</FileVersion>
+    <PackageId>ExtensionsDprCrud</PackageId>
+    <Authors>Daniel Pollack</Authors>
+    <Description>A short description of your package</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <RepositoryUrl>https://github.com/DotNetDeveloperDan/Dapper-Extensions</RepositoryUrl>
     <RootNamespace>Dapper_Extensions.Crud</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
