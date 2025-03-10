@@ -5,8 +5,11 @@
     <Version>2025.3.10.1</Version>
     <AssemblyVersion>2025.3.10.1</AssemblyVersion>
     <FileVersion>2025.3.10.1</FileVersion>
+
     <PackageId>ExtensionsDprCrud</PackageId>
-    <PackageIcon>Resources\Dapper.png</PackageIcon>
+    <!-- Match the file name exactly as it will appear in the package -->
+    <PackageIcon>Dapper.png</PackageIcon>
+    
     <Authors>Daniel Pollack</Authors>
     <Description>A short description of your package</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -24,14 +27,10 @@
     <PackageReference Include="Npgsql" Version="9.0.3" />
   </ItemGroup>
 
+  <!-- This line ensures the PNG is included in the final package 
+       (Pack="true") and placed in the package root (PackagePath="\"). -->
   <ItemGroup>
-    <Folder Include="Tests\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Resources\Dapper.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="Resources\Dapper.png" Pack="true" PackagePath="\" />
   </ItemGroup>
 
 </Project>
