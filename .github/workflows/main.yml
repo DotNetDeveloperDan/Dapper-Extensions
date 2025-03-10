@@ -20,10 +20,11 @@ jobs:
           dotnet-version: '8.0.x'
       
       # 1. Remove any old nuget.org v2 source and ensure we use the v3 source.
-      - name: Remove old NuGet source
+      - name: Remove old nuget.org source
         run: |
           dotnet nuget remove source nuget.org || true
           dotnet nuget add source https://api.nuget.org/v3/index.json --name nuget.org
+
 
       # 2. Restore dependencies
       - name: Restore Dependencies
