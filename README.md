@@ -18,3 +18,12 @@ Install via NuGet:
 
 ```bash
 dotnet add package Dapper-Extensions.Crud
+
+## Getting Started
+- DI Registration
+The library provides an extension method (AddDapperCrud) that registers:
+
+An IDbConnection (created and opened automatically),
+The generic IRepository<T>,
+The IUnitOfWork.
+For PostgreSQL, you can also supply a dictionary of enum mappings (key: C# enum type, value: PostgreSQL enum type name). This extension uses the new per-connection API (e.g. RegisterEnumMapping<TEnum>(string pgEnumName)) to register enum mappings.
