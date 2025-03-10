@@ -6,6 +6,7 @@
     <AssemblyVersion>2025.3.10.1</AssemblyVersion>
     <FileVersion>2025.3.10.1</FileVersion>
     <PackageId>ExtensionsDprCrud</PackageId>
+    <PackageIcon>Resources\Dapper.png</PackageIcon>
     <Authors>Daniel Pollack</Authors>
     <Description>A short description of your package</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -25,6 +26,12 @@
 
   <ItemGroup>
     <Folder Include="Tests\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Resources\Dapper.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
