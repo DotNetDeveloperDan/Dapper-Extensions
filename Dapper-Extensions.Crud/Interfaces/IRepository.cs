@@ -2,22 +2,22 @@
 
 public interface IRepository<T> where T : class
 {
-    public Task<T> GetByIdAsync(int id);
-    public T GetById(int id);
-    public Task<IEnumerable<T>> GetAllAsync();
+    Task<T> GetByIdAsync(object id);
+    T GetById(object id);
+    Task<IEnumerable<T>> GetAllAsync();
     IEnumerable<T> GetAll();
-    public Task<long> AddAsync(T entity);
-    public long Add(T entity);
-    public Task<bool> UpdateAsync(T entity);
-    public bool Update(T entity);
-    public Task<bool> DeleteAsync(T entity);
-    public bool Delete(T entity);
-    public Task<int> ExecuteStoredProcedureAsync(string storedProcName, object parameters = null);
-    public int ExecuteStoredProcedure(string storedProcName, object parameters = null);
-    public Task<IEnumerable<TResult>> ExecuteStoredProcedureAsync<TResult>(string storedProcName, object parameters = null);
-    public IEnumerable<TResult> ExecuteStoredProcedure<TResult>(string storedProcName, object parameters = null);
-    public Task<long> UpsertAsync(T entity);
-    public long Upsert(T entity);
-    public Task<(int inserted, int updated)> UpsertListBatchAsync(IEnumerable<T> entities, int batchSize = 1000);
-    public (int inserted, int updated) UpsertListBatch(IEnumerable<T> entities, int batchSize = 1000);
+    Task<long> AddAsync(T entity);
+    long Add(T entity);
+    Task<bool> UpdateAsync(T entity);
+    bool Update(T entity);
+    Task<bool> DeleteAsync(T entity);
+    bool Delete(T entity);
+    Task<IEnumerable<TResult>> ExecuteStoredProcedureAsync<TResult>(string storedProcName, object parameters);
+    IEnumerable<TResult> ExecuteStoredProcedure<TResult>(string storedProcName, object parameters);
+    Task<int> ExecuteStoredProcedureAsync(string storedProcName, object parameters);
+    int ExecuteStoredProcedure(string storedProcName, object parameters);
+    Task<long> UpsertAsync(T entity);
+    long Upsert(T entity);
+    Task<(int inserted, int updated)> UpsertListBatchAsync(IEnumerable<T> entities, int batchSize);
+    (int inserted, int updated) UpsertListBatch(IEnumerable<T> entities, int batchSize);
 }

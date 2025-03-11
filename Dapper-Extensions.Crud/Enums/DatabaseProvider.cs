@@ -1,4 +1,6 @@
-﻿namespace Dapper_Extensions.Crud.Enums;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace Dapper_Extensions.Crud.Enums;
 
 public enum DatabaseProvider
 {

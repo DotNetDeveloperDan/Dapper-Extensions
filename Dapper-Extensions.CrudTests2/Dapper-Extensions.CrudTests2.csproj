@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>Dapper_Extensions.CrudTests2</RootNamespace>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+    <PackageReference Include="MSTest" Version="3.6.4" />
+    <PackageReference Include="xunit" Version="2.6.6" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Dapper-Extensions.Crud\Dapper-Extensions.Crud.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
+  </ItemGroup>
+
+</Project>

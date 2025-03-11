@@ -2,7 +2,7 @@
 
 namespace Dapper_Extensions.Crud.Interfaces;
 
-internal interface ITransactionRepository
+public interface ITransactionRepository
 {
     IDbTransaction? Transaction { get; set; }
 }

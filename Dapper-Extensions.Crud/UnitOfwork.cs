@@ -14,7 +14,7 @@ namespace Dapper_Extensions.Crud
         {
             if (!_repositories.TryGetValue(typeof(T), out var repo))
             {
-                repo = new Repository<T>(_connection, _transaction);
+                repo = new Repository<T>(_connection, new DapperExecutor());
                 if (_transaction != null && repo is ITransactionRepository txRepo)
                 {
                     txRepo.Transaction = _transaction;
