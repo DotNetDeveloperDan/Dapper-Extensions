@@ -7,7 +7,6 @@ using Dapper;
 using Dapper.Contrib.Extensions;
 using Dapper_Extensions.Crud.Enums;
 using Dapper_Extensions.Crud.Interfaces;
-using Dapper_Extensions.Crud.Interfaces.DapperCrudLibrary.Mapping;
 
 namespace Dapper_Extensions.Crud
 {

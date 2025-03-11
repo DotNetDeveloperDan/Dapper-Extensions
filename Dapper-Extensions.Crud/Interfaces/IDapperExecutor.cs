@@ -1,6 +1,6 @@
 ﻿using System.Data;
 
-namespace Dapper_Extensions.Crud;
+namespace Dapper_Extensions.Crud.Interfaces;
 
 public interface IDapperExecutor
 {

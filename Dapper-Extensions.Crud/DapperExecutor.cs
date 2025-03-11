@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using Dapper_Extensions.Crud.Interfaces;
 using Dapper;
 using Dapper.Contrib.Extensions;
 

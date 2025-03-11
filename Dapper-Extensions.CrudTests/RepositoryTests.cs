@@ -1,21 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using Dapper;
-using Dapper.Contrib.Extensions;
-using Dapper_Extensions.Crud;
+﻿using System.Data;
+using Dapper_Extensions.Crud.Enums;
 using Dapper_Extensions.Crud.Interfaces;
 using Dapper_Extensions.Crud.Interfaces.DapperCrudLibrary.Mapping;
-using Microsoft.Data.SqlClient;
-using Npgsql;
+using Dapper.Contrib.Extensions;
 using Moq;
-using Xunit;
-using FluentAssertions;
-using Dapper_Extensions.Crud.Enums;
 
-namespace DapperExtensions.Tests
+namespace Dapper_Extensions.Crud.Tests
 {
     public class RepositoryTests
     {

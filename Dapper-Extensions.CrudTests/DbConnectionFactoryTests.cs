@@ -1,8 +1,7 @@
-﻿using Dapper_Extensions.Crud;
-using Microsoft.Data.SqlClient;
+﻿using Microsoft.Data.SqlClient;
 using Npgsql;
 
-namespace DapperExtensions.Tests;
+namespace Dapper_Extensions.Crud.Tests;
 
 public class DbConnectionFactoryTests
 {
