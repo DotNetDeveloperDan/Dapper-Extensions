@@ -57,32 +57,33 @@ jobs:
       - name: Check cosign version
         run: cosign version
 
-      # 6. Sign NuGet Package using Sigstore
+      # 6. Clear cosign TUF cache
       - name: Clear cosign TUF cache
         run: rm -rf $HOME/.cache/cosign/tuf
 
+      # 7. Sign NuGet Package using Sigstore (using sign-blob)
       - name: Sign NuGet Package with Sigstore
         run: |
           export COSIGN_TUF_SKIP=true
           export COSIGN_TUF_CACHE_PATH="/tmp/cosign-tuf"
           for pkg in ./nupkgs/*.nupkg; do
             echo "Signing $pkg"
-            cosign sign --key "" "file://$pkg"
+            cosign sign-blob --key "" --output-signature "$pkg.sig" "$pkg"
           done
         env:
           COSIGN_EXPERIMENTAL: "1"
           COSIGN_TUF_SKIP: "true"
           COSIGN_TUF_CACHE_PATH: "/tmp/cosign-tuf"
 
-      # 7. Verify the package signatures
+      # 8. Verify the package signatures (using verify-blob)
       - name: Verify Package Signature
         run: |
           for pkg in ./nupkgs/*.nupkg; do
             echo "Verifying signature for $pkg"
-            cosign verify --keyless "file://$pkg"
+            cosign verify-blob --keyless --signature "$pkg.sig" "$pkg"
           done
 
-      # 8. Push Package to NuGet.org (v3)
+      # 9. Push Package to NuGet.org (v3)
       - name: Push Package to NuGet.org
         run: |
           dotnet nuget push ./nupkgs/*.nupkg \
