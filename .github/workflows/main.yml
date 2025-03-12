@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       COSIGN_EXPERIMENTAL: "1"
-      COSIGN_TUF_SKIP: "true"
+      COSIGN_TUF_SKIP: "1"
 
     steps:
       - name: Checkout Code
@@ -61,7 +61,7 @@ jobs:
         run: |
           for pkg in ./nupkgs/*.nupkg; do
             echo "Signing $pkg"
-            COSIGN_TUF_SKIP=true cosign sign --key "" "$pkg"
+            COSIGN_TUF_SKIP=1 cosign sign --key "" "$pkg"
           done
         env:
           COSIGN_EXPERIMENTAL: "1"
