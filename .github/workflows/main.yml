@@ -13,6 +13,9 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      COSIGN_EXPERIMENTAL: "1"
+      COSIGN_TUF_SKIP: "true"
 
     steps:
       - name: Checkout Code
@@ -58,11 +61,10 @@ jobs:
         run: |
           for pkg in ./nupkgs/*.nupkg; do
             echo "Signing $pkg"
-            cosign sign --key "" "$pkg"
+            COSIGN_TUF_SKIP=true cosign sign --key "" "$pkg"
           done
         env:
           COSIGN_EXPERIMENTAL: "1"
-          COSIGN_TUF_SKIP: "true"
 
       # 7. Verify the package signatures
       - name: Verify Package Signature
