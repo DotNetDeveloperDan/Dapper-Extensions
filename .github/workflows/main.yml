@@ -80,9 +80,10 @@ jobs:
         run: |
           for pkg in ./nupkgs/*.nupkg; do
             echo "Verifying signature for $pkg"
-            cosign verify-blob --bundle "$pkg.bundle" --signature "$pkg.sig" "$pkg" --certificate-identity-regexp ".*"
+            cosign verify-blob --bundle "$pkg.bundle" --signature "$pkg.sig" "$pkg" \
+             --certificate-identity-regexp ".*" \
+             --certificate-oidc-issuer "https://token.actions.githubusercontent.com"
           done
-
       # 9. Push Package to NuGet.org (v3)
       - name: Push Package to NuGet.org
         run: |
