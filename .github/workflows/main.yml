@@ -67,7 +67,7 @@ jobs:
           export COSIGN_TUF_CACHE_PATH="/tmp/cosign-tuf"
           for pkg in ./nupkgs/*.nupkg; do
             echo "Signing $pkg"
-            cosign sign --key "" "$pkg"
+            cosign sign --key "" "file://$pkg"
           done
         env:
           COSIGN_EXPERIMENTAL: "1"
@@ -79,7 +79,7 @@ jobs:
         run: |
           for pkg in ./nupkgs/*.nupkg; do
             echo "Verifying signature for $pkg"
-            cosign verify --keyless "$pkg"
+            cosign verify --keyless "file://$pkg"
           done
 
       # 8. Push Package to NuGet.org (v3)
