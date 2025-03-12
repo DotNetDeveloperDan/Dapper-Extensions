@@ -68,7 +68,7 @@ jobs:
           export COSIGN_TUF_CACHE_PATH="/tmp/cosign-tuf"
           for pkg in ./nupkgs/*.nupkg; do
             echo "Signing $pkg"
-            cosign sign-blob --key "" --yes --output-signature "$pkg.sig" --output-bundle "$pkg.bundle" "$pkg"
+            cosign sign-blob --key "" --yes --output-signature "$pkg.sig" --bundle "$pkg.bundle" "$pkg"
           done
         env:
           COSIGN_EXPERIMENTAL: "1"
