@@ -25,7 +25,6 @@ jobs:
           dotnet nuget remove source nuget.org || true
           dotnet nuget add source https://api.nuget.org/v3/index.json --name nuget.org
 
-
       # 2. Restore dependencies
       - name: Restore Dependencies
         run: dotnet restore
@@ -38,11 +37,35 @@ jobs:
       - name: Pack NuGet Package
         run: dotnet pack --configuration Release --no-build -o ./nupkgs
 
-      # 5. Push Package to NuGet.org (v3)
+      # 5. Install cosign for Sigstore keyless signing
+      - name: Install cosign
+        run: |
+          curl -s -L https://github.com/sigstore/cosign/releases/download/v1.11.0/cosign-linux-amd64 -o cosign
+          chmod +x cosign
+          sudo mv cosign /usr/local/bin/
+        env:
+          COSIGN_EXPERIMENTAL: "1"
+
+      # 6. Sign NuGet Package using Sigstore
+      - name: Sign NuGet Package with Sigstore
+        run: |
+          for pkg in ./nupkgs/*.nupkg; do
+            echo "Signing $pkg"
+            cosign sign --keyless "$pkg"
+          done
+
+      # 7. Verify the package signatures
+      - name: Verify Package Signature
+        run: |
+          for pkg in ./nupkgs/*.nupkg; do
+            echo "Verifying signature for $pkg"
+            cosign verify --keyless "$pkg"
+          done
+
+      # 8. Push Package to NuGet.org (v3)
       - name: Push Package to NuGet.org
         run: |
           dotnet nuget push ./nupkgs/*.nupkg \
           --api-key ${{ secrets.NUGET_API_KEY }} \
           --source https://api.nuget.org/v3/index.json \
           --skip-duplicate
-
