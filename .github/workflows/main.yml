@@ -41,11 +41,15 @@ jobs:
       - name: Build
         run: dotnet build --configuration Release --no-restore
 
-      # 4. Pack NuGet Package
+      # 4. Run Tests using xUnit
+      - name: Run Tests
+        run: dotnet test --configuration Release --no-build
+
+      # 5. Pack NuGet Package
       - name: Pack NuGet Package
         run: dotnet pack --configuration Release --no-build -o ./nupkgs
 
-      # 5. Install cosign for Sigstore keyless signing
+      # 6. Install cosign for Sigstore keyless signing
       - name: Install cosign
         run: |
           curl -s -L https://github.com/sigstore/cosign/releases/download/v2.4.3/cosign-linux-amd64 -o cosign
@@ -57,11 +61,11 @@ jobs:
       - name: Check cosign version
         run: cosign version
 
-      # 6. Clear cosign TUF cache
+      # 7. Clear cosign TUF cache
       - name: Clear cosign TUF cache
         run: rm -rf $HOME/.cache/cosign/tuf
 
-      # 7. Sign NuGet Package using Sigstore (using sign-blob with bundle output)
+      # 8. Sign NuGet Package using Sigstore (using sign-blob with bundle output)
       - name: Sign NuGet Package with Sigstore
         run: |
           export COSIGN_TUF_SKIP=true
@@ -75,19 +79,20 @@ jobs:
           COSIGN_TUF_SKIP: "true"
           COSIGN_TUF_CACHE_PATH: "/tmp/cosign-tuf"
 
-      # 8. Verify the package signatures using verify-blob with bundle
+      # 9. Verify the package signatures using verify-blob with bundle
       - name: Verify Package Signature
         run: |
           for pkg in ./nupkgs/*.nupkg; do
             echo "Verifying signature for $pkg"
             cosign verify-blob --bundle "$pkg.bundle" --signature "$pkg.sig" "$pkg" \
-             --certificate-identity-regexp ".*" \
-             --certificate-oidc-issuer "https://token.actions.githubusercontent.com"
+              --certificate-identity-regexp ".*" \
+              --certificate-oidc-issuer "https://token.actions.githubusercontent.com"
           done
-      # 9. Push Package to NuGet.org (v3)
+
+      # 10. Push Package to NuGet.org (v3)
       - name: Push Package to NuGet.org
         run: |
           dotnet nuget push ./nupkgs/*.nupkg \
-          --api-key ${{ secrets.NUGET_API_KEY }} \
-          --source https://api.nuget.org/v3/index.json \
-          --skip-duplicate
+            --api-key ${{ secrets.NUGET_API_KEY }} \
+            --source https://api.nuget.org/v3/index.json \
+            --skip-duplicate
