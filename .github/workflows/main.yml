@@ -62,6 +62,7 @@ jobs:
           done
         env:
           COSIGN_EXPERIMENTAL: "1"
+          COSIGN_TUF_SKIP: "true"
 
       # 7. Verify the package signatures
       - name: Verify Package Signature
