@@ -75,12 +75,12 @@ jobs:
           COSIGN_TUF_SKIP: "true"
           COSIGN_TUF_CACHE_PATH: "/tmp/cosign-tuf"
 
-      # 8. Verify the package signatures (using verify-blob)
+      # 8. Verify the package signatures using verify-blob (without --keyless)
       - name: Verify Package Signature
         run: |
           for pkg in ./nupkgs/*.nupkg; do
             echo "Verifying signature for $pkg"
-            cosign verify-blob --keyless --signature "$pkg.sig" "$pkg"
+            cosign verify-blob --signature "$pkg.sig" "$pkg"
           done
 
       # 9. Push Package to NuGet.org (v3)
