@@ -57,14 +57,19 @@ jobs:
         run: cosign version
 
       # 6. Sign NuGet Package using Sigstore
+      - name: Clear cosign TUF cache
+        run: rm -rf $HOME/.cache/cosign/tuf
+
       - name: Sign NuGet Package with Sigstore
         run: |
           for pkg in ./nupkgs/*.nupkg; do
             echo "Signing $pkg"
-            COSIGN_TUF_SKIP=1 cosign sign --key "" "$pkg"
+            cosign sign --key "" "$pkg"
           done
         env:
           COSIGN_EXPERIMENTAL: "1"
+          COSIGN_TUF_SKIP: "1"
+          COSIGN_TUF_CACHE_PATH: "/tmp/cosign-tuf"
 
       # 7. Verify the package signatures
       - name: Verify Package Signature
