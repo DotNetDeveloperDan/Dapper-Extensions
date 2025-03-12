@@ -46,12 +46,15 @@ jobs:
         env:
           COSIGN_EXPERIMENTAL: "1"
 
+      - name: Check cosign version
+        run: cosign version
+
       # 6. Sign NuGet Package using Sigstore
       - name: Sign NuGet Package with Sigstore
         run: |
           for pkg in ./nupkgs/*.nupkg; do
             echo "Signing $pkg"
-            cosign sign --keyless "$pkg"
+            cosign sign "$pkg"
           done
 
       # 7. Verify the package signatures
