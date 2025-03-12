@@ -15,7 +15,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       COSIGN_EXPERIMENTAL: "1"
-      COSIGN_TUF_SKIP: "1"
+      COSIGN_TUF_SKIP: "true"
+      COSIGN_TUF_CACHE_PATH: "/tmp/cosign-tuf"
 
     steps:
       - name: Checkout Code
@@ -62,13 +63,15 @@ jobs:
 
       - name: Sign NuGet Package with Sigstore
         run: |
+          export COSIGN_TUF_SKIP=true
+          export COSIGN_TUF_CACHE_PATH="/tmp/cosign-tuf"
           for pkg in ./nupkgs/*.nupkg; do
             echo "Signing $pkg"
             cosign sign --key "" "$pkg"
           done
         env:
           COSIGN_EXPERIMENTAL: "1"
-          COSIGN_TUF_SKIP: "1"
+          COSIGN_TUF_SKIP: "true"
           COSIGN_TUF_CACHE_PATH: "/tmp/cosign-tuf"
 
       # 7. Verify the package signatures
