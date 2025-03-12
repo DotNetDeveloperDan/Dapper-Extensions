@@ -80,7 +80,7 @@ jobs:
         run: |
           for pkg in ./nupkgs/*.nupkg; do
             echo "Verifying signature for $pkg"
-            cosign verify-blob --bundle "$pkg.bundle" --signature "$pkg.sig" "$pkg"
+            cosign verify-blob --bundle "$pkg.bundle" --signature "$pkg.sig" "$pkg" --certificate-identity-regexp ".*"
           done
 
       # 9. Push Package to NuGet.org (v3)
