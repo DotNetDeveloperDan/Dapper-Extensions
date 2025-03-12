@@ -54,7 +54,7 @@ jobs:
         run: |
           for pkg in ./nupkgs/*.nupkg; do
             echo "Signing $pkg"
-            cosign sign "$pkg"
+            cosign sign --key "" "$pkg"
           done
 
       # 7. Verify the package signatures
