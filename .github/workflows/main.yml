@@ -56,6 +56,8 @@ jobs:
             echo "Signing $pkg"
             cosign sign --key "" "$pkg"
           done
+        env:
+          COSIGN_EXPERIMENTAL: "1"
 
       # 7. Verify the package signatures
       - name: Verify Package Signature
